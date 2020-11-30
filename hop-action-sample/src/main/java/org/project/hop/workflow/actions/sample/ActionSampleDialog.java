@@ -46,8 +46,6 @@ public class ActionSampleDialog extends ActionDialog implements IActionDialog {
   private boolean changed;
 
   private Text wName;
-  
-  private TextVar wMessageAbort;
 
   public ActionSampleDialog(Shell parent, IAction action, WorkflowMeta workflowMeta ) {
     super( parent, workflowMeta );

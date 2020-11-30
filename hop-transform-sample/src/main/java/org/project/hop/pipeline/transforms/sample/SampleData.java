@@ -23,7 +23,7 @@ import org.apache.hop.pipeline.transform.ITransformData;
 
 public class SampleData extends BaseTransformData implements ITransformData {
   /**
-   * Default constructor for AbortData.
+   * Default constructor for SampleData.
    */
   public SampleData() {
   }

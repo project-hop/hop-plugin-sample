@@ -29,19 +29,19 @@
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-core</artifactId>
             <version>${hop.version}</version>
-            <scope>runtime</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-engine</artifactId>
             <version>${hop.version}</version>
-            <scope>runtime</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.hop</groupId>
             <artifactId>hop-ui-swt</artifactId>
             <version>${hop.version}</version>
-            <scope>runtime</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.hop</groupId>
