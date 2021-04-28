@@ -18,6 +18,7 @@
 package org.project.hop.pipeline.transforms.sample;
 
 import org.apache.hop.core.util.Utils;
+import org.apache.hop.core.variables.IVariables;
 import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.pipeline.PipelineMeta;
 import org.apache.hop.pipeline.transform.BaseTransformMeta;
@@ -38,8 +39,8 @@ public class SampleDialog extends BaseTransformDialog implements ITransformDialo
 
   private final SampleMeta input;
 
-  public SampleDialog(Shell parent, Object in, PipelineMeta pipelineMeta, String sname ) {
-    super( parent, (BaseTransformMeta) in, pipelineMeta, sname );
+  public SampleDialog(Shell parent, IVariables variables , Object in, PipelineMeta pipelineMeta, String sname ) {
+    super( parent, variables, (BaseTransformMeta) in, pipelineMeta, sname );
     input = (SampleMeta) in;
   }
 

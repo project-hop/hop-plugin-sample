@@ -34,9 +34,8 @@ import java.util.List;
 
 @Action(
   id = "ACTIONSAMPLE",
-  i18nPackageName = "org.project.hop.workflow.actions.sample",
-  name = "ActionSample.Name",
-  description = "ActionSample.Description",
+  name = "i18n::ActionSample.Name",
+  description = "i18n::ActionSample.Description",
   image = "sample.svg",
   categoryDescription = "i18n:org.apache.hop.workflow:ActionCategory.Category.Utility",
   documentationUrl = "" /*url to your documentation */
@@ -83,7 +82,7 @@ public class ActionSample extends ActionBase implements Cloneable, IAction {
    * @throws HopXmlException
    */
   @Override
-  public void loadXml( Node entrynode, IHopMetadataProvider metadataProvider ) throws HopXmlException {
+  public void loadXml( Node entrynode, IHopMetadataProvider metadataProvider, IVariables variables ) throws HopXmlException {
     try {
       super.loadXml( entrynode );
       //message = XmlHandler.getTagValue( entrynode, "message" );

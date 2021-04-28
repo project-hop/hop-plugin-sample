@@ -39,9 +39,8 @@ import java.util.List;
  */
 @Transform(
         id = "Sample",
-        i18nPackageName = "org.project.hop.pipeline.transforms.sample",
-        name = "Sample.Name",
-        description = "Sample.Description",
+        name = "i18n::Sample.Name",
+        description = "i18n::Sample.Description",
         image = "sample.svg",
         categoryDescription = "i18n:org.apache.hop.pipeline.transform:BaseTransform.Category.Flow",
         documentationUrl = "" /*url to your documentation */

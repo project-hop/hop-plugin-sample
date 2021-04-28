@@ -19,6 +19,7 @@ package org.project.hop.workflow.actions.sample;
 
 import org.apache.hop.core.Const;
 import org.apache.hop.core.util.Utils;
+import org.apache.hop.core.variables.IVariables;
 import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.ui.core.gui.WindowProperty;
 import org.apache.hop.ui.core.widget.TextVar;
@@ -47,8 +48,8 @@ public class ActionSampleDialog extends ActionDialog implements IActionDialog {
 
   private Text wName;
 
-  public ActionSampleDialog(Shell parent, IAction action, WorkflowMeta workflowMeta ) {
-    super( parent, workflowMeta );
+  public ActionSampleDialog(Shell parent, IAction action, WorkflowMeta workflowMeta, IVariables variables) {
+    super( parent, workflowMeta, variables );
     this.action = (ActionSample) action;
     if ( this.action.getName() == null ) {
       this.action.setName( BaseMessages.getString( PKG, "ActionSample.Label" ) );
