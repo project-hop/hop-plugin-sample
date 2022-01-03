@@ -24,6 +24,8 @@ import org.apache.hop.pipeline.PipelineMeta;
 import org.apache.hop.pipeline.transform.BaseTransformMeta;
 import org.apache.hop.pipeline.transform.ITransformDialog;
 import org.apache.hop.ui.core.ConstUi;
+import org.apache.hop.ui.core.dialog.BaseDialog;
+import org.apache.hop.ui.core.widget.TextVar;
 import org.apache.hop.ui.pipeline.transform.BaseTransformDialog;
 import org.apache.hop.ui.util.SwtSvgImageUtil;
 import org.eclipse.swt.SWT;
@@ -38,6 +40,7 @@ public class SampleDialog extends BaseTransformDialog implements ITransformDialo
   private static final Class<?> PKG = SampleDialog.class; // Needed by Translator
 
   private final SampleMeta input;
+  private TextVar wSampleTextField;
 
   public SampleDialog(Shell parent, IVariables variables , Object in, PipelineMeta pipelineMeta, String sname ) {
     super( parent, variables, (BaseTransformMeta) in, pipelineMeta, sname );
@@ -54,6 +57,9 @@ public class SampleDialog extends BaseTransformDialog implements ITransformDialo
     shell.setMinimumSize( 400, 520 );
     setShellImage( shell, input );
 
+    int margin = props.getMargin();
+    int middle = props.getMiddlePct();
+
     ModifyListener lsMod = e -> input.setChanged();
     SelectionAdapter lsSelMod = new SelectionAdapter() {
       @Override
@@ -68,11 +74,11 @@ public class SampleDialog extends BaseTransformDialog implements ITransformDialo
     formLayout.marginHeight = 15;
 
     shell.setLayout( formLayout );
-    shell.setText( BaseMessages.getString( PKG, "Sample.Shell.Title" ) );
+    shell.setText( BaseMessages.getString( PKG, "SampleTransform.Shell.Title") );
 
     // TransformName line
     wlTransformName = new Label( shell, SWT.RIGHT );
-    wlTransformName.setText( BaseMessages.getString( PKG, "Sample.TransformName.Label" ) );
+    wlTransformName.setText( BaseMessages.getString( PKG, "SampleTransform.TransformName.Label") );
     props.setLook( wlTransformName );
     fdlTransformName = new FormData();
     fdlTransformName.left = new FormAttachment( 0, 0 );
@@ -107,12 +113,32 @@ public class SampleDialog extends BaseTransformDialog implements ITransformDialo
     wicon.setLayoutData( fdlicon );
     props.setLook( wicon );
 
+    // Add a simple text field
+    Label wlSampleTextFieldLabel = new Label(shell, SWT.RIGHT);
+    wlSampleTextFieldLabel.setText(BaseMessages.getString(PKG, "SampleTransform.SampleText.Label"));
+    props.setLook(wlSampleTextFieldLabel);
+    FormData fdlSampleTextFieldLabel = new FormData();
+    fdlSampleTextFieldLabel.left = new FormAttachment(0, 0);
+    //fdlSampleTextFieldLabel.right = new FormAttachment(middle, -margin);
+    fdlSampleTextFieldLabel.top = new FormAttachment(spacer, margin);
+    wlSampleTextFieldLabel.setLayoutData(fdlSampleTextFieldLabel);
+
+    wSampleTextField = new TextVar(variables, shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
+    props.setLook(wSampleTextField);
+    wSampleTextField.addModifyListener(lsMod);
+    FormData fdSampleTextField = new FormData();
+    fdSampleTextField.left = new FormAttachment(wlSampleTextFieldLabel, margin);
+    fdSampleTextField.top = new FormAttachment(spacer, margin);
+    fdSampleTextField.right = new FormAttachment(100, 0);
+    wSampleTextField.setLayoutData(fdSampleTextField);
+
     // Some buttons
     wCancel = new Button( shell, SWT.PUSH );
     wCancel.setText( BaseMessages.getString( PKG, "System.Button.Cancel" ) );
     FormData fdCancel = new FormData();
     fdCancel.right = new FormAttachment( 100, 0 );
     fdCancel.bottom = new FormAttachment( 100, 0 );
+    wCancel.addListener(SWT.Selection, e -> cancel());
     wCancel.setLayoutData( fdCancel );
 
     wOk = new Button( shell, SWT.PUSH );
@@ -121,46 +147,18 @@ public class SampleDialog extends BaseTransformDialog implements ITransformDialo
     fdOk.right = new FormAttachment( wCancel, -5 );
     fdOk.bottom = new FormAttachment( 100, 0 );
     wOk.setLayoutData( fdOk );
+    wOk.addListener(SWT.Selection, e -> ok());
 
-
-
-
-    // Add listeners
-    lsCancel = e -> cancel();
-    lsOk = e -> ok();
-
-    wCancel.addListener( SWT.Selection, lsCancel );
-    wOk.addListener( SWT.Selection, lsOk );
-
-    lsDef = new SelectionAdapter() {
-      @Override
-      public void widgetDefaultSelected( SelectionEvent e ) {
-        ok();
-      }
-    };
-
-    wTransformName.addSelectionListener( lsDef );
-
-    // Detect X or ALT-F4 or something that kills this window...
-    shell.addShellListener( new ShellAdapter() {
-      @Override
-      public void shellClosed( ShellEvent e ) {
-        cancel();
-      }
-    } );
+    setButtonPositions(new Button[] {wOk, wCancel}, margin, null);
 
     // Set the shell size, based upon previous time...
     setSize();
-
     getData();
+
     input.setChanged( changed );
 
-    shell.open();
-    while ( !shell.isDisposed() ) {
-      if ( !display.readAndDispatch() ) {
-        display.sleep();
-      }
-    }
+    BaseDialog.defaultShellHandling(shell, c -> ok(), c -> cancel());
+
     return transformName;
   }
 
@@ -174,6 +172,9 @@ public class SampleDialog extends BaseTransformDialog implements ITransformDialo
    */
   public void getData() {
 
+    // Get sample text and put it on dialog's text field
+    wSampleTextField.setText(input.getSampleText());
+
     wTransformName.selectAll();
     wTransformName.setFocus();
   }
@@ -185,6 +186,8 @@ public class SampleDialog extends BaseTransformDialog implements ITransformDialo
    * @param in
    */
   private void getInfo( SampleMeta in ) {
+    // Save sample text content
+    input.setSampleText(wSampleTextField.getText());
   }
 
   /**

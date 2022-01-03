@@ -22,8 +22,11 @@ import org.apache.hop.core.annotations.Transform;
 import org.apache.hop.core.exception.HopTransformException;
 import org.apache.hop.core.exception.HopXmlException;
 import org.apache.hop.core.row.IRowMeta;
+import org.apache.hop.core.row.IValueMeta;
+import org.apache.hop.core.row.value.ValueMetaString;
 import org.apache.hop.core.variables.IVariables;
 import org.apache.hop.core.xml.XmlHandler;
+import org.apache.hop.metadata.api.HopMetadataProperty;
 import org.apache.hop.metadata.api.IHopMetadataProvider;
 import org.apache.hop.pipeline.Pipeline;
 import org.apache.hop.pipeline.PipelineMeta;
@@ -38,22 +41,37 @@ import java.util.List;
  * Meta data for the sample transform.
  */
 @Transform(
-        id = "Sample",
-        name = "i18n::Sample.Name",
-        description = "i18n::Sample.Description",
+        id = "SampleTransform",
+        name = "i18n::SampleTransform.Name",
+        description = "i18n::SampleTransform.Description",
         image = "sample.svg",
-        categoryDescription = "i18n:org.apache.hop.pipeline.transform:BaseTransform.Category.Flow",
+        categoryDescription = "Sample.Category",
         documentationUrl = "" /*url to your documentation */
 )
 public class SampleMeta extends BaseTransformMeta implements ITransformMeta<Sample, SampleData> {
 
   private static final Class<?> PKG = SampleMeta.class; // Needed by Translator
+  public final static String SAMPLE_TEXT_FIELD_NAME = "Value";
 
+  @HopMetadataProperty(key="sample_text", injectionKeyDescription = "SampleTransform.Injection.SampleText.Description")
+  private String sampleText;
+
+  public String getSampleText() {
+    return sampleText;
+  }
+
+  public void setSampleText(String sampleText) {
+    this.sampleText = sampleText;
+  }
 
   @Override
-  public void getFields( IRowMeta inputRowMeta, String name, IRowMeta[] info, TransformMeta nextTransform,
+  public void getFields( IRowMeta rowMeta, String name, IRowMeta[] info, TransformMeta nextTransform,
                          IVariables variables, IHopMetadataProvider metadataProvider ) throws HopTransformException {
-    // Default: no values are added to the row in the transform
+    // Add new
+    IValueMeta vm = new ValueMetaString(SAMPLE_TEXT_FIELD_NAME);
+    vm.setOrigin(getParentTransformMeta().getName());
+
+    rowMeta.addValueMeta(vm);
   }
 
   @Override
@@ -75,23 +93,9 @@ public class SampleMeta extends BaseTransformMeta implements ITransformMeta<Samp
   }
 
   @Override
-  public void loadXml( Node transformNode, IHopMetadataProvider metadataProvider ) throws HopXmlException {
-    //load the saved values from the transformnode
-    String sampleValue = XmlHandler.getTagValue( transformNode, "sampleValue" );
-
-  }
-
-  @Override
   public void setDefault() {
-    //default values when creating a new transform
-  }
-
-  @Override
-  public String getXml() {
-    //save your metadata values to the transform xml
-    StringBuilder retval = new StringBuilder( 200 );
-    retval.append( "      " ).append( XmlHandler.addTagValue( "sampleValue", "this is a value" ) );
-    return retval.toString();
+    // Set default value for new sample text field
+    sampleText = "Hello my name is Apache Hop!";
   }
 
 }

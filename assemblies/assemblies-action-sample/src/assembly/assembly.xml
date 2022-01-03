@@ -5,7 +5,7 @@
     <formats>
         <format>zip</format>
     </formats>
-    <baseDirectory>plugins/actions/sample</baseDirectory>
+    <baseDirectory>hop-action-sample</baseDirectory>
     <files>
         <file>
             <source>${project.basedir}/src/main/resources/version.xml</source>

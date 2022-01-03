@@ -18,6 +18,9 @@
 package org.project.hop.pipeline.transforms.sample;
 
 import org.apache.hop.core.exception.HopException;
+import org.apache.hop.core.exception.HopTransformException;
+import org.apache.hop.core.row.IRowMeta;
+import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.pipeline.Pipeline;
 import org.apache.hop.pipeline.PipelineMeta;
 import org.apache.hop.pipeline.transform.BaseTransform;
@@ -52,7 +55,17 @@ public class Sample extends BaseTransform<SampleMeta, SampleData> implements ITr
       first=false;
     }
 
-    putRow( getInputRowMeta(), r ); // return your data
+    data.outputRowMeta = getInputRowMeta().clone();
+    meta.getFields(data.outputRowMeta, getTransformName(), null, null, this, metadataProvider);
+
+    int fieldPos = data.outputRowMeta.indexOfValue(SampleMeta.SAMPLE_TEXT_FIELD_NAME);
+    if (fieldPos < 0) {
+      throw new HopTransformException("Target field [" + SampleMeta.SAMPLE_TEXT_FIELD_NAME + "] couldn't be found in output stream!");
+    }
+
+    r[fieldPos] = meta.getSampleText();
+
+    putRow( data.outputRowMeta, r ); // return your data
     return true;
   }
 
