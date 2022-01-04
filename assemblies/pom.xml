@@ -5,7 +5,7 @@
 
   <groupId>org.project.hop</groupId>
   <artifactId>sample-plugin-assemblies</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Hop Assemblies</name>
@@ -13,7 +13,7 @@
   <parent>
     <groupId>org.project.hop</groupId>
     <artifactId>hop-sample-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -23,6 +23,6 @@
   <modules>
     <module>assemblies-action-sample</module>
     <module>assemblies-transform-sample</module>
-    <module>debug</module>
+    <!-- module>debug</module -->
   </modules>
 </project>

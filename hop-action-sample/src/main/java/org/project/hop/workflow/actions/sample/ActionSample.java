@@ -37,7 +37,7 @@ import java.util.List;
   name = "i18n::ActionSample.Name",
   description = "i18n::ActionSample.Description",
   image = "sample.svg",
-  categoryDescription = "i18n:org.apache.hop.workflow:ActionCategory.Category.Utility",
+  categoryDescription = "Sample.Category",
   documentationUrl = "" /*url to your documentation */
 )
 public class ActionSample extends ActionBase implements Cloneable, IAction {
