@@ -12,27 +12,32 @@
                 <include>*:*:zip</include>
             </includes>
             <unpack>true</unpack>
-            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>.</outputDirectory>
             <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useProjectArtifact>false</useProjectArtifact>
         </dependencySet>
     </dependencySets>
     <fileSets>
         <fileSet>
             <directory>databases</directory>
             <includes>
-                <include>**/*.zip</include>
+                <include>org.apache.hop:databases-db2:jar</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>transforms</directory>
             <includes>
-                <include>**/*.zip</include>
+                <include>org.apache.hop:hop-transform-selectvalues:jar</include>
+                <include>org.apache.hop:hop-transform-rowgenerator:jar</include>
+                <include>org.apache.hop:hop-transform-datagrid:jar</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>actions</directory>
             <includes>
-                <include>**/*.zip</include>
+                <include>org.apache.hop:hop-action-abort:jar</include>
+                <include>org.apache.hop:hop-action-delay:jar</include>
+                <include>org.apache.hop:hop-action-pipeline:jar</include>
             </includes>
         </fileSet>
     </fileSets>
