@@ -20,40 +20,34 @@ package org.project.hop.pipeline.transforms.sample;
 import org.apache.hop.core.ICheckResult;
 import org.apache.hop.core.annotations.Transform;
 import org.apache.hop.core.exception.HopTransformException;
-import org.apache.hop.core.exception.HopXmlException;
 import org.apache.hop.core.row.IRowMeta;
 import org.apache.hop.core.row.IValueMeta;
 import org.apache.hop.core.row.value.ValueMetaString;
 import org.apache.hop.core.variables.IVariables;
-import org.apache.hop.core.xml.XmlHandler;
 import org.apache.hop.metadata.api.HopMetadataProperty;
 import org.apache.hop.metadata.api.IHopMetadataProvider;
-import org.apache.hop.pipeline.Pipeline;
 import org.apache.hop.pipeline.PipelineMeta;
 import org.apache.hop.pipeline.transform.BaseTransformMeta;
-import org.apache.hop.pipeline.transform.ITransformMeta;
 import org.apache.hop.pipeline.transform.TransformMeta;
-import org.w3c.dom.Node;
 
 import java.util.List;
 
-/**
- * Meta data for the sample transform.
- */
+/** Meta data for the sample transform. */
 @Transform(
-        id = "SampleTransform",
-        name = "i18n::SampleTransform.Name",
-        description = "i18n::SampleTransform.Description",
-        image = "sample.svg",
-        categoryDescription = "Sample.Category",
-        documentationUrl = "" /*url to your documentation */
-)
-public class SampleMeta extends BaseTransformMeta implements ITransformMeta<Sample, SampleData> {
+    id = "SampleTransform",
+    name = "i18n::SampleTransform.Name",
+    description = "i18n::SampleTransform.Description",
+    image = "sample.svg",
+    categoryDescription = "Sample.Category",
+    documentationUrl = "" /*url to your documentation */)
+public class SampleMeta extends BaseTransformMeta<Sample, SampleData> {
 
   private static final Class<?> PKG = SampleMeta.class; // Needed by Translator
-  public final static String SAMPLE_TEXT_FIELD_NAME = "Value";
+  public static final String SAMPLE_TEXT_FIELD_NAME = "Value";
 
-  @HopMetadataProperty(key="sample_text", injectionKeyDescription = "SampleTransform.Injection.SampleText.Description")
+  @HopMetadataProperty(
+      key = "sample_text",
+      injectionKeyDescription = "SampleTransform.Injection.SampleText.Description")
   private String sampleText;
 
   public String getSampleText() {
@@ -65,8 +59,14 @@ public class SampleMeta extends BaseTransformMeta implements ITransformMeta<Samp
   }
 
   @Override
-  public void getFields( IRowMeta rowMeta, String name, IRowMeta[] info, TransformMeta nextTransform,
-                         IVariables variables, IHopMetadataProvider metadataProvider ) throws HopTransformException {
+  public void getFields(
+      IRowMeta rowMeta,
+      String name,
+      IRowMeta[] info,
+      TransformMeta nextTransform,
+      IVariables variables,
+      IHopMetadataProvider metadataProvider)
+      throws HopTransformException {
     // Add new
     IValueMeta vm = new ValueMetaString(SAMPLE_TEXT_FIELD_NAME);
     vm.setOrigin(getParentTransformMeta().getName());
@@ -75,21 +75,17 @@ public class SampleMeta extends BaseTransformMeta implements ITransformMeta<Samp
   }
 
   @Override
-  public void check( List<ICheckResult> remarks, PipelineMeta pipelineMeta, TransformMeta transforminfo,
-                     IRowMeta prev, String[] input, String[] output, IRowMeta info, IVariables variables,
-                     IHopMetadataProvider metadataProvider ) {
+  public void check(
+      List<ICheckResult> remarks,
+      PipelineMeta pipelineMeta,
+      TransformMeta transforminfo,
+      IRowMeta prev,
+      String[] input,
+      String[] output,
+      IRowMeta info,
+      IVariables variables,
+      IHopMetadataProvider metadataProvider) {
     // Checks to perform when validating a transform
-  }
-
-  @Override
-  public Sample createTransform(TransformMeta transformMeta, SampleData data, int copyNr,
-                                PipelineMeta pipelineMeta, Pipeline pipeline ) {
-    return new Sample( transformMeta, this, data, copyNr, pipelineMeta, pipeline );
-  }
-
-  @Override
-  public SampleData getTransformData() {
-    return new SampleData();
   }
 
   @Override
@@ -97,5 +93,4 @@ public class SampleMeta extends BaseTransformMeta implements ITransformMeta<Samp
     // Set default value for new sample text field
     sampleText = "Hello my name is Apache Hop!";
   }
-
 }

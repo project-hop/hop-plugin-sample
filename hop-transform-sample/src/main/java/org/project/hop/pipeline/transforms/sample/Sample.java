@@ -19,40 +19,38 @@ package org.project.hop.pipeline.transforms.sample;
 
 import org.apache.hop.core.exception.HopException;
 import org.apache.hop.core.exception.HopTransformException;
-import org.apache.hop.core.row.IRowMeta;
-import org.apache.hop.i18n.BaseMessages;
 import org.apache.hop.pipeline.Pipeline;
 import org.apache.hop.pipeline.PipelineMeta;
 import org.apache.hop.pipeline.transform.BaseTransform;
-import org.apache.hop.pipeline.transform.ITransform;
 import org.apache.hop.pipeline.transform.TransformMeta;
 
-/**
- * Transform That contains the basic skeleton needed to create your own plugin
- *
- */
-public class Sample extends BaseTransform<SampleMeta, SampleData> implements ITransform<SampleMeta, SampleData> {
+/** Transform That contains the basic skeleton needed to create your own plugin */
+public class Sample extends BaseTransform<SampleMeta, SampleData> {
 
   private static final Class<?> PKG = Sample.class; // Needed by Translator
 
-  public Sample(TransformMeta transformMeta, SampleMeta meta, SampleData data, int copyNr, PipelineMeta pipelineMeta,
-                Pipeline pipeline ) {
-    super( transformMeta, meta, data, copyNr, pipelineMeta, pipeline );
+  public Sample(
+      TransformMeta transformMeta,
+      SampleMeta meta,
+      SampleData data,
+      int copyNr,
+      PipelineMeta pipelineMeta,
+      Pipeline pipeline) {
+    super(transformMeta, meta, data, copyNr, pipelineMeta, pipeline);
   }
-
 
   @Override
   public boolean processRow() throws HopException {
 
     Object[] r = getRow(); // Get row from input rowset & set row busy!
 
-    if ( r == null ) {    // no more input to be expected...
+    if (r == null) { // no more input to be expected...
       setOutputDone();
       return false;
     }
 
-    if(first){ // use this block to do some processing that is only needed 1 time
-      first=false;
+    if (first) { // use this block to do some processing that is only needed 1 time
+      first = false;
     }
 
     data.outputRowMeta = getInputRowMeta().clone();
@@ -60,19 +58,21 @@ public class Sample extends BaseTransform<SampleMeta, SampleData> implements ITr
 
     int fieldPos = data.outputRowMeta.indexOfValue(SampleMeta.SAMPLE_TEXT_FIELD_NAME);
     if (fieldPos < 0) {
-      throw new HopTransformException("Target field [" + SampleMeta.SAMPLE_TEXT_FIELD_NAME + "] couldn't be found in output stream!");
+      throw new HopTransformException(
+          "Target field ["
+              + SampleMeta.SAMPLE_TEXT_FIELD_NAME
+              + "] couldn't be found in output stream!");
     }
 
     r[fieldPos] = meta.getSampleText();
 
-    putRow( data.outputRowMeta, r ); // return your data
+    putRow(data.outputRowMeta, r); // return your data
     return true;
   }
 
-
   @Override
   public boolean init() {
-    if(super.init()){
+    if (super.init()) {
       return true;
     }
     return false;

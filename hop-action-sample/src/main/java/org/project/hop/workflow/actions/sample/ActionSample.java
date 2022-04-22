@@ -33,31 +33,29 @@ import org.w3c.dom.Node;
 import java.util.List;
 
 @Action(
-  id = "ACTIONSAMPLE",
-  name = "i18n::ActionSample.Name",
-  description = "i18n::ActionSample.Description",
-  image = "sample.svg",
-  categoryDescription = "Sample.Category",
-  documentationUrl = "" /*url to your documentation */
-)
+    id = "ACTIONSAMPLE",
+    name = "i18n::ActionSample.Name",
+    description = "i18n::ActionSample.Description",
+    image = "sample.svg",
+    categoryDescription = "Sample.Category",
+    documentationUrl = "" /*url to your documentation */)
 public class ActionSample extends ActionBase implements Cloneable, IAction {
   private static final Class<?> PKG = ActionSample.class; // Needed by Translator
 
-  public ActionSample( String name) {
-    super( name, "" );
+  public ActionSample(String name) {
+    super(name, "");
   }
 
   public ActionSample() {
-    this( "");
+    this("");
   }
-  
+
   public Object clone() {
     ActionSample c = (ActionSample) super.clone();
     return c;
   }
 
   /**
-   *
    * Save values to XML
    *
    * @return
@@ -66,15 +64,14 @@ public class ActionSample extends ActionBase implements Cloneable, IAction {
   public String getXml() {
     StringBuilder retval = new StringBuilder();
 
-    retval.append( super.getXml() );
-    //example value to xml
-    retval.append( XmlHandler.addTagValue( "example", "value" ) );
+    retval.append(super.getXml());
+    // example value to xml
+    retval.append(XmlHandler.addTagValue("example", "value"));
 
     return retval.toString();
   }
 
   /**
-   *
    * Read the XML and get the values needed for the acton
    *
    * @param entrynode
@@ -82,30 +79,31 @@ public class ActionSample extends ActionBase implements Cloneable, IAction {
    * @throws HopXmlException
    */
   @Override
-  public void loadXml( Node entrynode, IHopMetadataProvider metadataProvider, IVariables variables ) throws HopXmlException {
+  public void loadXml(Node entrynode, IHopMetadataProvider metadataProvider, IVariables variables)
+      throws HopXmlException {
     try {
-      super.loadXml( entrynode );
-      //message = XmlHandler.getTagValue( entrynode, "message" );
-    } catch ( Exception e ) {
-      throw new HopXmlException( BaseMessages.getString( PKG, "ActionSample.UnableToLoadFromXml.Label" ), e );
+      super.loadXml(entrynode);
+      // message = XmlHandler.getTagValue( entrynode, "message" );
+    } catch (Exception e) {
+      throw new HopXmlException(
+          BaseMessages.getString(PKG, "ActionSample.UnableToLoadFromXml.Label"), e);
     }
   }
 
   /**
-   * Execute this action and return the result. In this case it means, just set the result boolean in the Result
-   * class.
+   * Execute this action and return the result. In this case it means, just set the result boolean
+   * in the Result class.
    *
    * @param result The result of the previous execution
    * @return The Result of the execution.
    */
   @Override
-  public Result execute( Result result, int nr ) {
+  public Result execute(Result result, int nr) {
 
     return result;
   }
 
   /**
-   *
    * Add checks to report warnings
    *
    * @param remarks
@@ -114,7 +112,9 @@ public class ActionSample extends ActionBase implements Cloneable, IAction {
    * @param metadataProvider
    */
   @Override
-  public void check( List<ICheckResult> remarks, WorkflowMeta workflowMeta, IVariables variables,
-                     IHopMetadataProvider metadataProvider ) {
-  }
+  public void check(
+      List<ICheckResult> remarks,
+      WorkflowMeta workflowMeta,
+      IVariables variables,
+      IHopMetadataProvider metadataProvider) {}
 }
