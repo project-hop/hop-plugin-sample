@@ -36,6 +36,7 @@ Instructions on how to run debug using **Intellij**:
 - From the Modify Options menu select following opitons
     - Add before launch task
     - Add VM Options
+    - Add dependencies with "provided" scope to classpath
 - In the before launch add build & run maven goal -> clean install
 - Use Java 11
 - set module to hop-assemblies-debug
