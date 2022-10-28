@@ -17,7 +17,7 @@
 
     <properties>
         <!-- Set this to the Hop version you want to debug against-->
-        <hop.version>2.0.0-SNAPSHOT</hop.version>
+        <hop.version>2.2.0-SNAPSHOT</hop.version>
 
 
         <!-- Third-party dependencies-->

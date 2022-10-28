@@ -189,33 +189,6 @@
             </exclusions>
         </dependency>
 
-        <!-- swt -->
-
-        <dependency>
-            <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
-            <version>${org.eclipse.swt.gtk.linux.x86_64.version}</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
-            <version>${org.eclipse.swt.win32.win32.x86_64.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -258,6 +231,88 @@
                 </plugins>
             </build>
         </profile>
+        <!-- needed for correct SWT libs dependending on system -->
+            <profile>
+                <id>swt-unix</id>
+                <activation>
+                    <os>
+                        <family>unix</family>
+                    </os>
+                </activation>
+                <properties>
+                    <swt.artifactId>org.eclipse.swt.gtk.linux.x86_64</swt.artifactId>
+                    <env>linux</env>
+                </properties>
+                <dependencyManagement>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.eclipse.platform</groupId>
+                            <artifactId>${swt.artifactId}</artifactId>
+                            <version>${org.eclipse.platform.version}</version>
+                            <exclusions>
+                                <exclusion>
+                                    <groupId>*</groupId>
+                                    <artifactId>*</artifactId>
+                                </exclusion>
+                            </exclusions>
+                        </dependency>
+                    </dependencies>
+                </dependencyManagement>
+            </profile>
+            <profile>
+                <id>swt-mac</id>
+                <activation>
+                    <os>
+                        <family>mac</family>
+                    </os>
+                </activation>
+                <properties>
+                    <swt.artifactId>org.eclipse.swt.cocoa.macosx.x86_64</swt.artifactId>
+                    <env>mac</env>
+                </properties>
+                <dependencyManagement>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.eclipse.platform</groupId>
+                            <artifactId>${swt.artifactId}</artifactId>
+                            <version>${org.eclipse.platform.version}</version>
+                            <exclusions>
+                                <exclusion>
+                                    <groupId>*</groupId>
+                                    <artifactId>*</artifactId>
+                                </exclusion>
+                            </exclusions>
+                        </dependency>
+                    </dependencies>
+                </dependencyManagement>
+            </profile>
+            <profile>
+                <id>swt-windows</id>
+                <activation>
+                    <os>
+                        <family>windows</family>
+                    </os>
+                </activation>
+                <properties>
+                    <swt.artifactId>org.eclipse.swt.win32.win32.x86_64</swt.artifactId>
+                    <env>windows</env>
+                </properties>
+                <dependencyManagement>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.eclipse.platform</groupId>
+                            <artifactId>${swt.artifactId}</artifactId>
+                            <version>${org.eclipse.platform.version}</version>
+                            <exclusions>
+                                <exclusion>
+                                    <groupId>*</groupId>
+                                    <artifactId>*</artifactId>
+                                </exclusion>
+                            </exclusions>
+                        </dependency>
+                    </dependencies>
+                </dependencyManagement>
+            </profile>
     </profiles>
 
 </project>
