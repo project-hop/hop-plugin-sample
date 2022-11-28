@@ -21,7 +21,7 @@
 
 
         <!-- Third-party dependencies-->
-        <org.eclipse.platform.version>3.119.0</org.eclipse.platform.version>
+        <org.eclipse.platform.version>3.121.0</org.eclipse.platform.version>
         <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
 
         <!-- Jandex For annotation Detection -->
