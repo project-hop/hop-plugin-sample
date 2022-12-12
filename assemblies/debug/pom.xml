@@ -9,9 +9,9 @@
     <name>Hop Assemblies Debug</name>
 
     <parent>
-        <groupId>org.project.hop</groupId>
+        <groupId>org.apache.hop</groupId>
         <artifactId>sample-plugin-assemblies</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>2.3.0-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -50,7 +50,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.project.hop</groupId>
+            <groupId>org.apache.hop</groupId>
             <artifactId>assemblies-transform-sample</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
@@ -63,7 +63,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.project.hop</groupId>
+            <groupId>org.apache.hop</groupId>
             <artifactId>assemblies-action-sample</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
