@@ -38,6 +38,8 @@
         <module>hop-transform-sample</module>
         <module>hop-action-sample</module>
         <module>assemblies</module>
+        <module>hop-bom</module>
+        <module>hop-it</module>
     </modules>
 
 
