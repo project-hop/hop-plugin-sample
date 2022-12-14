@@ -25,7 +25,7 @@
         <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
 
         <!-- Jandex For annotation Detection -->
-        <jandex.version>2.2.2.Final</jandex.version>
+        <jandex.version>2.4.2.Final</jandex.version>
         <junit.version>4.13.1</junit.version>
 
         <!-- Java version -->

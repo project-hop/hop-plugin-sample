@@ -25,7 +25,7 @@
         <dependencySet>
             <useProjectArtifact>false</useProjectArtifact>
             <includes>
-                <include>org.project.hop:hop-action-sample:jar</include>
+                <include>org.apache.hop:hop-action-sample:jar</include>
             </includes>
         </dependencySet>
     </dependencySets>
