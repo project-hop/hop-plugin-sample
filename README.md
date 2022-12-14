@@ -48,5 +48,37 @@ The {VERSION} should be replaced with the pom version you use.
 
 Run this application and Hop should show up including your custom plugins.
 
+## How to debug your plugins HopGui with maven
 
+- Add your hop plugins to hop-it-launcher(pom.xml 126 line)
+- start hop-gui by `mvn exec:exec@hop-gui -pl :hop-it-launcher`
+- In IntelliJ IDEA, attach to process: Run -> Attach to process...  
+
+By default `mvn install` will start HOP-GUI, the execution is bound to integration-test phase.
+
+```xml
+<!-- pom snippet -->
+<pom>
+  <!-- hop-it-launcher -->
+  <!-- .... -->
+  
+  <dependencies>
+    <!-- ....  -->
+    
+    <!-- add some plugins 126 line -->
+    <dependency>
+      <groupId>org.apache.hop</groupId>
+      <artifactId>assemblies-action-sample</artifactId>
+      <version>${project.version}</version>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hop</groupId>
+      <artifactId>assemblies-transform-sample</artifactId>
+      <version>${project.version}</version>
+      <type>zip</type>
+    </dependency>
+  </dependencies>
+</pom>
+```
 
