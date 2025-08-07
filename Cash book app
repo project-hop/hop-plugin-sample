@@ -1,0 +1,149 @@
+cashbook-app/
+│
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── Dashboard.js
+│   │   ├── CashForm.js
+│   │   ├── Summary.js
+│   ├── services/
+│   │   ├── firebase.js
+│   │   └── storage.js
+│   ├── App.js
+│   └── index.js
+├── package.json
+└── tailwind.config.js
+// src/services/firebase.js
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_APP.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_BUCKET",
+  messagingSenderId: "YOUR_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export { db };// src/services/storage.js
+import { db } from "./firebase";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+
+const LOCAL_KEY = 'cashbook_data';
+
+export async function saveEntry(entry, online = false) {
+  let data = getLocalData();
+  data.push(entry);
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(data));
+
+  if (online) {
+    try {
+      await addDoc(collection(db, "cashbook"), entry);
+    } catch (e) {
+      console.error("Cloud save error:", e);
+    }
+  }
+}
+
+export function getLocalData() {
+  const raw = localStorage.getItem(LOCAL_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+export async function getCloudData() {
+  const snapshot = await getDocs(collection(db, "cashbook"));
+  return snapshot.docs.map(doc => doc.data());
+}// src/components/CashForm.js
+import { useState } from 'react';
+import { saveEntry } from '../services/storage';
+
+export default function CashForm({ onAdd }) {
+  const [type, setType] = useState("in");
+  const [amount, setAmount] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const entry = {
+      type,
+      amount: parseFloat(amount),
+      date: new Date().toISOString()
+    };
+    saveEntry(entry, true);
+    onAdd(entry);
+    setAmount("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="p-4">
+      <select value={type} onChange={(e) => setType(e.target.value)} className="border p-2">
+        <option value="in">Cash In</option>
+        <option value="out">Cash Out</option>
+      </select>
+      <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" className="border p-2 mx-2" />
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2">Add</button>
+    </form>
+  );
+}// src/components/Dashboard.js
+export default function Dashboard({ data }) {
+  const totalIn = data.filter(e => e.type === "in").reduce((a, b) => a + b.amount, 0);
+  const totalOut = data.filter(e => e.type === "out").reduce((a, b) => a + b.amount, 0);
+  const balance = totalIn - totalOut;
+
+  return (
+    <div className="p-4 bg-gray-100">
+      <h2 className="text-xl font-bold">Dashboard</h2>
+      <p>Cash In: {totalIn}</p>
+      <p>Cash Out: {totalOut}</p>
+      <p className="font-semibold">Balance: {balance}</p>
+    </div>
+  );
+}// src/components/Summary.js
+export default function Summary({ data }) {
+  return (
+    <div className="p-4">
+      <h3 className="text-lg font-bold">Transaction Summary</h3>
+      <ul>
+        {data.map((item, i) => (
+          <li key={i} className="border-b py-2">
+            {item.date.slice(0, 10)} - {item.type.toUpperCase()} - ${item.amount}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}// src/App.js
+import { useEffect, useState } from "react";
+import { getLocalData } from "./services/storage";
+import CashForm from "./components/CashForm";
+import Dashboard from "./components/Dashboard";
+import Summary from "./components/Summary";
+
+export default function App() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setData(getLocalData());
+  }, []);
+
+  const addEntry = (entry) => {
+    setData([...data, entry]);
+  };
+
+  return (
+    <div className="max-w-xl mx-auto">
+      <h1 className="text-2xl font-bold text-center py-4">Cash Book</h1>
+      <Dashboard data={data} />
+      <CashForm onAdd={addEntry} />
+      <Summary data={data} />
+    </div>
+  );
+}npx create-react-app cashbook-app
+cd cashbook-app
+npm install firebase
+npm install -D tailwindcss
+npx tailwindcss init
+
