@@ -5,7 +5,7 @@
 
   <groupId>org.apache.hop</groupId>
   <artifactId>sample-plugin-assemblies</artifactId>
-  <version>2.3.0-SNAPSHOT</version>
+  <version>2.16.0</version>
   <packaging>pom</packaging>
 
   <name>Hop Assemblies</name>
@@ -13,7 +13,7 @@
   <parent>
     <groupId>org.apache.hop</groupId>
     <artifactId>hop-sample-plugin</artifactId>
-    <version>2.3.0-SNAPSHOT</version>
+    <version>2.16.0</version>
   </parent>
 
   <properties>

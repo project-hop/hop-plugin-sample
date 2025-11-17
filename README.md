@@ -1,11 +1,11 @@
 # Apache Hop plugins Samples
 > **_NOTE:_**  
-> Latest Update: 2022/04/22\
-> Hop Version 2.0.0
+> Latest Update: 2025/11/13\
+> Hop Version 2.16.0
 
 ### Pre-requisites for building the project:
 * Maven, version 3+
-* Java JDK 11
+* Java JDK 17
 
 ## Overview
 
@@ -38,7 +38,7 @@ Instructions on how to run debug using **Intellij**:
     - Add VM Options
     - Add dependencies with "provided" scope to classpath
 - In the before launch add build & run maven goal -> clean install
-- Use Java 11
+- Use Java 17
 - set module to hop-assemblies-debug
 - (if on mac) add -XstartOnFirstThread as VM option
 - Main Class is `org.apache.hop.ui.hopgui.HopGui`
