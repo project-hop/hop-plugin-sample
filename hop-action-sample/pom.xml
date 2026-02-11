@@ -5,7 +5,7 @@
     <parent>
         <artifactId>hop-sample-plugin</artifactId>
         <groupId>org.apache.hop</groupId>
-        <version>2.3.0-SNAPSHOT</version>
+        <version>2.18.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,27 +13,15 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.jboss.jandex</groupId>
+                <groupId>io.smallrye</groupId>
                 <artifactId>jandex-maven-plugin</artifactId>
-                <version>1.0.8</version>
+                <version>${jandex.version}</version>
                 <executions>
                     <execution>
                         <id>make-index</id>
                         <goals>
                             <goal>jandex</goal>
                         </goals>
-                        <!-- phase is 'process-classes by default' -->
-                        <configuration>
-                            <!-- Nothing needed here for simple cases -->
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -60,7 +48,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss</groupId>
+            <groupId>io.smallrye</groupId>
             <artifactId>jandex</artifactId>
             <version>${jandex.version}</version>
         </dependency>

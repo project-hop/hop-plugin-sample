@@ -7,7 +7,7 @@
     <groupId>org.apache.hop</groupId>
     <artifactId>hop-sample-plugin</artifactId>
     <packaging>pom</packaging>
-    <version>2.3.0-SNAPSHOT</version>
+    <version>2.18.0-SNAPSHOT</version>
 
     <name>HOP Sample Plugin development</name>
     <description>Maven POM for a sample plugin</description>
@@ -17,20 +17,21 @@
 
     <properties>
         <!-- Set this to the Hop version you want to debug against-->
-        <hop.version>2.3.0-SNAPSHOT</hop.version>
+        <hop.version>2.18.0-SNAPSHOT</hop.version>
 
 
         <!-- Third-party dependencies-->
-        <org.eclipse.platform.version>3.121.0</org.eclipse.platform.version>
-        <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
+        <org.eclipse.platform.version>3.132.0</org.eclipse.platform.version>
+        <xmlgraphics.version>2.9</xmlgraphics.version>
+        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
 
         <!-- Jandex For annotation Detection -->
-        <jandex.version>2.4.2.Final</jandex.version>
-        <junit.version>4.13.1</junit.version>
+        <jandex.version>3.2.2</jandex.version>
+        <junit.version>5.10.2</junit.version>
 
         <!-- Java version -->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
     </properties>
 
@@ -51,12 +52,13 @@
             <id>swt-unix</id>
             <activation>
                 <os>
+                    <name>Linux</name>
                     <family>unix</family>
                 </os>
             </activation>
             <properties>
-                <swt.artifactId>org.eclipse.swt.gtk.linux.x86_64</swt.artifactId>
                 <env>linux</env>
+                <swt.artifactId>org.eclipse.swt.gtk.linux.x86_64</swt.artifactId>
             </properties>
             <dependencyManagement>
                 <dependencies>
@@ -82,8 +84,8 @@
                 </os>
             </activation>
             <properties>
-                <swt.artifactId>org.eclipse.swt.cocoa.macosx.x86_64</swt.artifactId>
                 <env>mac</env>
+                <swt.artifactId>org.eclipse.swt.cocoa.macosx.aarch64</swt.artifactId>
             </properties>
             <dependencyManagement>
                 <dependencies>
